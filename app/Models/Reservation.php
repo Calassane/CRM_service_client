@@ -7,6 +7,7 @@ use Database\Factories\ReservationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reservation extends Model
 {
@@ -31,6 +32,14 @@ class Reservation extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    /**
+     * @return HasMany<CustomerCall, $this>
+     */
+    public function customerCalls(): HasMany
+    {
+        return $this->hasMany(CustomerCall::class);
     }
 
     /**

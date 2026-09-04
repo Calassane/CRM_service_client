@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,18 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => 'demo@bollirental.africa'],
-            [
-                'name' => 'Agent Démo',
-                'password' => 'BolliDemo2026!',
-                'email_verified_at' => now(),
-            ],
-        );
-
         $this->call([
+            AgentSeeder::class,
             ClientSeeder::class,
             ReservationSeeder::class,
+            TagSeeder::class,
+            CustomerCallSeeder::class,
         ]);
     }
 }

@@ -34,6 +34,14 @@ class Client extends Model
     }
 
     /**
+     * @return HasMany<CustomerCall, $this>
+     */
+    public function customerCalls(): HasMany
+    {
+        return $this->hasMany(CustomerCall::class);
+    }
+
+    /**
      * @return Attribute<string, never>
      */
     protected function fullName(): Attribute
