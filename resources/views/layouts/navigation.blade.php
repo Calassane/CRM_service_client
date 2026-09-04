@@ -18,6 +18,12 @@
                     <x-nav-link :href="route('customer-calls.index')" :active="request()->routeIs('customer-calls.*')">
                         Appels
                     </x-nav-link>
+                    <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
+                        Clients
+                    </x-nav-link>
+                    <x-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.*')">
+                        Réservations
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +81,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('customer-calls.index')" :active="request()->routeIs('customer-calls.*')">
                 Appels
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
+                Clients
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.*')">
+                Réservations
             </x-responsive-nav-link>
         </div>
 

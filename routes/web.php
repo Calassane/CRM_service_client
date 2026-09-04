@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CustomerCallController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +21,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('clients', ClientController::class);
+    Route::resource('reservations', ReservationController::class);
     Route::resource('customer-calls', CustomerCallController::class)
         ->parameters(['customer-calls' => 'customerCall']);
 });

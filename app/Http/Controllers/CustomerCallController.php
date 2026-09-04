@@ -16,6 +16,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Queries\CustomerCalls\CustomerCallIndexQuery;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -38,11 +39,13 @@ class CustomerCallController extends Controller
         ]);
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         Gate::authorize('create', CustomerCall::class);
 
-        return view('customer-calls.create', $this->formData());
+        return view('customer-calls.create', $this->formData(
+            selectedClientId: $this->existingClientId($request),
+        ));
     }
 
     public function store(StoreCustomerCallRequest $request): RedirectResponse
@@ -104,10 +107,13 @@ class CustomerCallController extends Controller
     /**
      * @return array<string, mixed>
      */
-    private function formData(?CustomerCall $customerCall = null): array
-    {
+    private function formData(
+        ?CustomerCall $customerCall = null,
+        ?int $selectedClientId = null,
+    ): array {
         return [
             'customerCall' => $customerCall,
+            'selectedClientId' => $selectedClientId,
             'selectedTagIds' => $customerCall?->tags->modelKeys() ?? [],
             'clients' => Client::query()->orderBy('last_name')->orderBy('first_name')->get(),
             'reservations' => Reservation::query()
@@ -157,5 +163,12 @@ class CustomerCallController extends Controller
             ],
             CallStatus::cases(),
         );
+    }
+
+    private function existingClientId(Request $request): ?int
+    {
+        return Client::query()
+            ->whereKey($request->integer('client_id'))
+            ->value('id');
     }
 }

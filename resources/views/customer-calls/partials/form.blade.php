@@ -15,7 +15,7 @@
         <select id="client_id" name="client_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
             <option value="">Sélectionner un client</option>
             @foreach ($clients as $client)
-                <option value="{{ $client->id }}" @selected(old('client_id', $customerCall?->client_id) == $client->id)>
+                <option value="{{ $client->id }}" @selected(old('client_id', $customerCall?->client_id ?? $selectedClientId) == $client->id)>
                     {{ $client->full_name }} — {{ $client->phone }}
                 </option>
             @endforeach
