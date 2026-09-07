@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,12 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            AgentSeeder::class,
-            ClientSeeder::class,
-            ReservationSeeder::class,
-            TagSeeder::class,
-            CustomerCallSeeder::class,
-        ]);
+        DB::transaction(function (): void {
+            $this->call([
+                AgentSeeder::class,
+                ClientSeeder::class,
+                ReservationSeeder::class,
+                TagSeeder::class,
+                CustomerCallSeeder::class,
+            ]);
+        });
     }
 }

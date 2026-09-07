@@ -34,4 +34,16 @@ class DatabaseSeederTest extends TestCase
         );
         $this->assertGreaterThan(0, CustomerCall::query()->has('tags')->count());
     }
+
+    public function test_database_seeder_can_be_run_more_than_once_without_duplicates(): void
+    {
+        $this->seed();
+        $this->seed();
+
+        $this->assertDatabaseCount('users', 4);
+        $this->assertDatabaseCount('clients', 15);
+        $this->assertDatabaseCount('reservations', 25);
+        $this->assertDatabaseCount('tags', 6);
+        $this->assertDatabaseCount('customer_calls', 75);
+    }
 }
