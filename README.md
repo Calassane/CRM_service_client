@@ -7,8 +7,8 @@ Mini-CRM interne destiné au service client de **Bolli Rental**, une entreprise 
 ## Liens
 
 - Dépôt GitHub : <https://github.com/Calassane/CRM_service_client>
-- Application : à compléter après le premier déploiement Laravel Cloud
-- État de santé : `https://URL-DE-L-APPLICATION/up`
+- Application : <https://crm-service-client-production-9wpzaa.laravel.cloud>
+- État de santé : <https://crm-service-client-production-9wpzaa.laravel.cloud/up>
 
 ## Compte de démonstration
 
@@ -173,8 +173,8 @@ Le projet ne nécessite aucun fichier de déploiement spécifique. La configurat
 
 1. Connecter GitHub à Laravel Cloud.
 2. Sélectionner le dépôt `Calassane/CRM_service_client` et la branche `main`.
-3. Choisir PHP 8.4 et Node.js 22.
-4. Créer et attacher une base MySQL depuis le canevas d’infrastructure. Les variables de connexion seront injectées automatiquement.
+3. Choisir PHP 8.5 et Node.js 24.
+4. Créer et attacher une base MySQL 8.4 depuis le canevas d’infrastructure. Les variables de connexion seront injectées automatiquement.
 
 ### 2. Variables d’environnement
 
@@ -188,23 +188,23 @@ Ajouter au minimum les variables suivantes dans l’environnement Laravel Cloud 
 
 ```dotenv
 APP_NAME="Bolli Rental CRM"
-APP_ENV=production
 APP_KEY=base64:CLE_GENEREE_A_REMPLACER
-APP_DEBUG=false
-APP_URL=https://URL-DE-L-APPLICATION.laravel.cloud
+APP_URL=https://crm-service-client-production-9wpzaa.laravel.cloud
 APP_LOCALE=fr
 APP_FALLBACK_LOCALE=fr
 LOG_LEVEL=warning
 ```
 
-Ne pas recopier les variables `DB_*` si la base est attachée depuis Laravel Cloud.
+Laravel Cloud injecte déjà `APP_ENV=production` et `APP_DEBUG=false`. Ne pas recopier les variables `DB_*` si la base est attachée depuis Laravel Cloud.
 
 ### 3. Commandes Cloud
 
 Commande de build :
 
 ```bash
-composer install --no-dev --optimize-autoloader && npm ci && npm run build
+composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+npm ci --audit false
+npm run build
 ```
 
 Commande de déploiement :
@@ -228,7 +228,7 @@ Les déploiements suivants ne doivent exécuter que les migrations afin de ne pa
 - tester la création d’un client, d’une réservation et d’un appel ;
 - vérifier les filtres et les quatre graphiques ;
 - contrôler l’affichage sur mobile ;
-- remplacer l’URL temporaire de ce README par l’URL publique définitive.
+- vérifier que les liens publics de ce README correspondent au domaine Cloud actif.
 
 ## Périmètre et simplifications
 
