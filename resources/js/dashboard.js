@@ -4,17 +4,25 @@ const dataElement = document.getElementById('dashboard-chart-data');
 
 if (dataElement) {
     const charts = JSON.parse(dataElement.textContent);
-    const gridColor = 'rgba(148, 163, 184, 0.18)';
-    const textColor = '#475569';
+    const gridColor = 'rgba(148, 163, 184, 0.14)';
+    const textColor = '#64748b';
 
     Chart.defaults.color = textColor;
-    Chart.defaults.font.family = 'Figtree, ui-sans-serif, system-ui, sans-serif';
+    Chart.defaults.font.family = 'Manrope, ui-sans-serif, system-ui, sans-serif';
 
     const cartesianOptions = {
         responsive: true,
         maintainAspectRatio: false,
         interaction: { intersect: false, mode: 'index' },
-        plugins: { legend: { display: false } },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: '#0f172a',
+                padding: 12,
+                cornerRadius: 10,
+                titleFont: { weight: '700' },
+            },
+        },
         scales: {
             x: { grid: { display: false } },
             y: {
@@ -35,13 +43,13 @@ if (dataElement) {
                 datasets: [{
                     label: 'Appels',
                     data: charts.daily.values,
-                    borderColor: '#4f46e5',
-                    backgroundColor: 'rgba(79, 70, 229, 0.12)',
-                    borderWidth: 2,
+                    borderColor: '#2178ef',
+                    backgroundColor: 'rgba(33, 120, 239, 0.10)',
+                    borderWidth: 2.5,
                     fill: true,
-                    pointBackgroundColor: '#4f46e5',
+                    pointBackgroundColor: '#2178ef',
                     pointRadius: charts.daily.values.length > 31 ? 0 : 3,
-                    tension: 0.3,
+                    tension: 0.35,
                 }],
             },
             options: cartesianOptions,
@@ -58,8 +66,9 @@ if (dataElement) {
                 datasets: [{
                     label: 'Appels',
                     data: charts.weekly.values,
-                    backgroundColor: '#0f766e',
-                    borderRadius: 6,
+                    backgroundColor: '#22d3ee',
+                    hoverBackgroundColor: '#0891b2',
+                    borderRadius: 8,
                 }],
             },
             options: cartesianOptions,
@@ -69,11 +78,16 @@ if (dataElement) {
     const distributionOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '64%',
+        cutout: '68%',
         plugins: {
             legend: {
                 position: 'bottom',
-                labels: { boxWidth: 12, padding: 16, usePointStyle: true },
+                labels: { boxWidth: 9, padding: 18, usePointStyle: true, font: { weight: '600' } },
+            },
+            tooltip: {
+                backgroundColor: '#0f172a',
+                padding: 12,
+                cornerRadius: 10,
             },
         },
     };
@@ -93,7 +107,8 @@ if (dataElement) {
                     data: distribution.values,
                     backgroundColor: colors,
                     borderColor: '#ffffff',
-                    borderWidth: 3,
+                    borderWidth: 4,
+                    hoverOffset: 5,
                 }],
             },
             options: distributionOptions,
@@ -101,9 +116,9 @@ if (dataElement) {
     };
 
     createDoughnut('call-reasons-chart', charts.reasons, [
-        '#4f46e5', '#e11d48', '#0891b2', '#d97706', '#64748b',
+        '#2178ef', '#8b5cf6', '#06b6d4', '#f59e0b', '#94a3b8',
     ]);
     createDoughnut('call-statuses-chart', charts.statuses, [
-        '#16a34a', '#d97706', '#dc2626',
+        '#10b981', '#f59e0b', '#ef4444', '#2178ef',
     ]);
 }

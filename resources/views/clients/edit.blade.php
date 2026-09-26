@@ -1,8 +1,12 @@
 <x-app-layout>
-    <x-slot name="header"><h2 class="text-xl font-semibold leading-tight text-gray-800">Modifier {{ $client->full_name }}</h2></x-slot>
-    <div class="py-10">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('clients.update', $client) }}" class="rounded-lg bg-white p-6 shadow-sm">
+    <x-slot name="header">
+        <p class="eyebrow">Relation client</p>
+        <h1 class="page-title">Modifier {{ $client->full_name }}</h1>
+        <p class="page-subtitle">Maintenez les coordonnées et informations du client à jour.</p>
+    </x-slot>
+    <div class="page-container">
+        <div class="mx-auto max-w-4xl">
+            <form method="POST" action="{{ route('clients.update', $client) }}" class="panel p-5 sm:p-8">
                 @csrf
                 @method('PUT')
                 @include('clients.partials.form')

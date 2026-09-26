@@ -1,11 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">Modifier l’appel</h2>
+        <p class="eyebrow">Support & suivi</p>
+        <h1 class="page-title">Modifier l’appel</h1>
+        <p class="page-subtitle">Corrigez la qualification, le statut ou les notes de l’interaction.</p>
     </x-slot>
-
-    <div class="py-10">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('customer-calls.update', $customerCall) }}" class="rounded-lg bg-white p-6 shadow-sm">
+    <div class="page-container">
+        <div class="mx-auto max-w-5xl">
+            <form method="POST" action="{{ route('customer-calls.update', $customerCall) }}" class="panel p-5 sm:p-8">
                 @csrf
                 @method('PUT')
                 @include('customer-calls.partials.form')
